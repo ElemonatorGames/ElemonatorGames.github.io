@@ -1,0 +1,37 @@
+---
+import "../styles/tokens.css";
+const { title = "Elemonator Games Inc." } = Astro.props;
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header role="banner" class="container">
+      <h1 class="visually-hidden">Elemonator Games Inc.</h1>
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/co-development">Co-development</a>
+        <a href="/projects">Projects</a>
+      </nav>
+    </header>
+    <main id="main" class="container">
+      <slot />
+    </main>
+    <footer role="contentinfo" class="container">
+      <p>© {new Date().getFullYear()} EGI</p>
+      <ul aria-label="Socials and developer spaces">
+        <!-- TODO: replace '#' with real URLs when available -->
+        <li><!-- TODO: Twitter URL --><a href="#" target="_blank" rel="noopener noreferrer">Twitter</a></li>
+        <li><!-- TODO: Discord invite --><a href="#" target="_blank" rel="noopener noreferrer">Discord</a></li>
+        <li><!-- TODO: Steam developer/publisher page URL --><a href="#" target="_blank" rel="noopener noreferrer">Steam</a></li>
+        <li><!-- TODO: LinkedIn company URL --><a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><!-- TODO: Itch.io profile URL --><a href="#" target="_blank" rel="noopener noreferrer">Itch.io</a></li>
+      </ul>
+    </footer>
+  </body>
+</html>

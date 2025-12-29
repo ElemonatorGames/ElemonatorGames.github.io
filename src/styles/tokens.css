@@ -1,0 +1,23 @@
+/* Design tokens & accessibility helpers */
+:root {
+  --bg: #0b0b0c;
+  --fg: #fafafa;
+  --muted: #bdbdbd;
+  --accent: #87ff45;
+  --radius: 14px;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: var(--font-sans); line-height: 1.55; }
+a, button { min-width: 44px; min-height: 44px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; clip-path: inset(50%); }
+.skip { position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+.skip:focus { left:1rem; top:1rem; width:auto; height:auto; padding:.5rem 1rem; background:#000; color:#fff; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+.btn { display:inline-block; padding:.7rem 1rem; border-radius: .75rem; border: 1px solid currentColor; text-decoration: none; }
+.btn:hover { text-decoration: underline; }
+
+h1,h2,h3 { letter-spacing: -.015em; }

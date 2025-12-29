@@ -1,0 +1,39 @@
+---
+import Base from "../../layouts/Base.astro";
+const title = "Elemonator Games Inc. – Game Co‑Development & Projects";
+---
+<Base {title}>
+  <section aria-labelledby="hero">
+    <h1 id="hero">Elemonator Games Inc.</h1>
+    <p>NB‑based game studio helping teams ship—engineering, design, and art—plus two in‑house projects.</p>
+    <p>
+      <a href="/co-development" class="btn">Explore co‑dev packages</a>
+      <a href="/projects" class="btn" style="margin-left:.5rem;">See projects</a>
+      <a href="#contact" class="btn" style="margin-left:.5rem;">Contact</a>
+    </p>
+  </section>
+
+  <section aria-labelledby="contact" id="contact">
+    <h2>Contact</h2>
+    <!-- Progressive enhancement; if Worker unavailable, mailto fallback below -->
+    <form action="https://YOUR-WORKER-SUBDOMAIN.workers.dev/contact" method="POST" enctype="application/x-www-form-urlencoded">
+      <label for="name">Name</label>
+      <input id="name" name="name" required autocomplete="name" />
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required autocomplete="email" />
+
+      <label for="msg">Message</label>
+      <textarea id="msg" name="message" rows="6" required></textarea>
+
+      <!-- Anti-spam -->
+      <input type="text" name="company" aria-hidden="true" tabindex="-1" style="position:absolute;left:-10000px;" autocomplete="off" />
+      <input type="hidden" name="ts" id="ts" />
+      <input type="hidden" name="token" value="egi-v1" />
+
+      <button type="submit" class="btn">Send</button>
+      <p>If this form fails, email us: <a href="mailto:elemonatorgames@gmail.com">elemonatorgames@gmail.com</a></p>
+      <script>document.getElementById('ts').value = Date.now().toString();</script>
+    </form>
+  </section>
+</Base>
