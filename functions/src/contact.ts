@@ -57,8 +57,11 @@ export default {
       })
     });
 
-    if (!res.ok) return new Response("Email service error", { status: 502, headers: cors(env) });
-
+  if (!res.ok) {
+    const text = await res.text();
+    console.error("Resend error", res.status, text);
+    return new Response("Email service error", { status: 502, headers: cors(env) });
+  }
     return Response.redirect(`${env.ALLOW_ORIGIN}/thanks`, 303);
 
     function bad(msg: string){ return new Response(msg, { status: 400, headers: cors(env) }); }
