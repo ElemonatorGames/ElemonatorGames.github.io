@@ -1,0 +1,11 @@
+name = "egi-contact-worker"
+main = "src/contact.ts"
+compatibility_date = "2025-12-01"
+
+[vars]
+TO_EMAIL = "elemonatorgames@gmail.com"
+FROM_EMAIL = "web@egigames.com"
+ALLOW_ORIGIN = "https://elemonatorgames.github.io"
+
+# NOTE: Set RESEND_API_KEY as a secret in Cloudflare dashboard / via wrangler.
+# Do NOT commit RESEND_API_KEY into git.
