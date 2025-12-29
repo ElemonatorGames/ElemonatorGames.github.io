@@ -4,7 +4,7 @@ compatibility_date = "2025-12-01"
 
 [vars]
 TO_EMAIL = "elemonatorgames@gmail.com"
-FROM_EMAIL = "web@egigames.com"
+FROM_EMAIL = "onboarding@resend.dev"
 ALLOW_ORIGIN = "https://elemonatorgames.github.io"
 
 # NOTE: Set RESEND_API_KEY as a secret in Cloudflare dashboard / via wrangler.
