@@ -34,6 +34,25 @@ const title = "Elemonator Games Inc. – Game Co‑Development & Projects";
       <button type="submit" class="btn">Send</button>
       <p>If this form fails, email us: <a href="mailto:elemonatorgames@gmail.com">elemonatorgames@gmail.com</a></p>
       <script>document.getElementById('ts').value = Date.now().toString();</script>
+
+      <!-- Honeypot (should stay empty) -->
+      <div class="sr-only" aria-hidden="true">
+        <label>
+          Company
+          <input name="company" tabindex="-1" autocomplete="off" />
+        </label>
+      </div>
+
+      <input type="hidden" name="token" value="egi-v1" />
+      <input type="hidden" name="ts" id="egi-ts" value="0" />
+
     </form>
+    <script>
+      (function () {
+        var el = document.getElementById('egi-ts');
+        if (el) el.value = String(Date.now());
+      })();
+    </script>
+
   </section>
 </Base>
