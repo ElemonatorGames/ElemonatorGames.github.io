@@ -61,7 +61,7 @@ const title = "Elemonator Games Inc. – Game Co‑Development & Projects";
         const tsEl = form.querySelector('input[name="ts"]');
 
         // set initial timestamp
-        if (tsEl) tsEl.value = String(Date.now());
+        // if (tsEl) tsEl.value = String(Date.now());
 
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
@@ -87,25 +87,28 @@ const title = "Elemonator Games Inc. – Game Co‑Development & Projects";
               method: 'POST',
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Accept': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
+                'Accept': 'application/json'
               },
               body: new URLSearchParams(new FormData(form)).toString()
             });
 
-            if (res.ok || (res.status >= 200 && res.status < 400)) {
+            const data = await res.json().catch(() => null);
+
+            if (res.ok && data && data.success) {
               window.location.href = '/thanks';
               return;
-            } else {
-              const text = await res.text();
-              status.innerHTML = 'Submission failed: ' + (text || res.statusText || 'Server error.');
-              status.classList.add('form-status--error');
-              status.tabIndex = -1;
-              status.focus();
             }
+
+            const msg = (data && data.error) ? data.error : (res.statusText || 'Server error.');
+            status.textContent = 'Submission failed: ' + msg;
+            status.classList.add('form-status--error');
+            status.hidden = false;
+            status.tabIndex = -1;
+            status.focus();
+
           } catch (err) {
             console.error(err);
-            status.innerHTML = 'Network error. Try <a href="mailto:elemonatorgames@gmail.com">emailing us directly</a>.';
+            status.textContent = 'Network error. Please try again, or email us directly at elemonatorgames@gmail.com.';
             status.classList.add('form-status--error');
             status.tabIndex = -1;
             status.focus();
