@@ -44,3 +44,7 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## 🖼️ Assets & Icons
+
+Brand icons placed in `public/icons/` are from **Font Awesome Free** and are used under their license (icons: CC BY 4.0). See https://fontawesome.com/license/free for details.

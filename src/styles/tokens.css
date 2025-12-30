@@ -84,4 +84,5 @@ h2 { font-size: var(--size-h2); margin-top: 1rem; margin-bottom: .5rem; }
 .social-link { display:inline-flex; width:40px; height:40px; align-items:center; justify-content:center; border-radius: .5rem; background: rgba(255,255,255,0.02); color: var(--fg); border:1px solid rgba(255,255,255,0.03); text-decoration:none; transition: background .12s ease, transform .08s ease, color .08s ease; }
 .social-link:hover, .social-link:focus { background: var(--accent); color: #000; transform: translateY(-2px); }
 .social-icon { font-size: .95rem; font-weight:700; line-height:1; display:inline-block; }
+.social-link .social-icon { width: 1.05rem; height: 1.05rem; display: block; fill: currentColor; }
 
