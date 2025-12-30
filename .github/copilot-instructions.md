@@ -22,7 +22,8 @@ Notes for agents:
   - `RESEND_API_KEY` (secret) — **do not** commit to git. Must be set via `wrangler secret put RESEND_API_KEY` or set in Cloudflare dashboard.
   - `TO_EMAIL` — destination email (e.g., `elemonatorgames@gmail.com`).
   - `FROM_EMAIL` — sender email; must be verified with Resend if required.
-  - `ALLOW_ORIGIN` — origin allowed for CORS (defaults to `https://elemonatorgames.github.io`).
+  - `DOMAIN` — primary site domain (e.g., `elemonatorgames.com`). The worker validates incoming requests' `Origin` header and accepts both the apex (`https://elemonatorgames.com`) and `https://www.elemonatorgames.com`.
+  - `ALLOW_ORIGIN` (optional) — comma-separated additional allowed origins for development or testing (e.g., `http://localhost:4321, http://127.0.0.1:4321`). Only use this for local `wrangler dev` or test worker setups.
 
 Worker behavior and constraints (see `functions/src/contact.ts`):
 - Accepts only `POST` (and `OPTIONS` preflight) and rejects invalid origins.
@@ -59,12 +60,12 @@ Agent tasks related to the worker:
 
 ## How to test contact form locally (quick steps)
 - Start the site: `npm run dev` (Astro prints the local port — default 4321, but it may increment if already in use).
-- Worker: run a local worker for end-to-end tests: `cd functions && wrangler dev` (or set `ALLOW_ORIGIN` to `http://localhost:<port>` for a test worker). Use a test `RESEND_API_KEY` (set with `wrangler secret put RESEND_API_KEY`) or a stubbed endpoint to avoid sending real emails during tests.
+- Worker: run a local worker for end-to-end tests: `cd functions && wrangler dev` (or set `ALLOW_ORIGIN` to a comma-separated list, e.g., `http://localhost:4321, http://127.0.0.1:4321`, for a test worker). Use a test `RESEND_API_KEY` (set with `wrangler secret put RESEND_API_KEY`) or a stubbed endpoint to avoid sending real emails during tests.
 - Test matrix:
   - JS enabled: verify spinner, disable-on-submit, success redirect to `/thanks`, and friendly inline errors on failure.
   - JS disabled: verify the form gracefully falls back to a normal POST and the worker handles it server-side.
   - Honeypot/token/ts: ensure the worker rejects spam cases (honeypot filled, token missing or ts too recent).
-- CORS note: the worker checks `Origin` against `ALLOW_ORIGIN` — update `wrangler.toml` or `ALLOW_ORIGIN` for local dev if needed.
+- CORS note: the worker validates the `Origin` header against the configured `DOMAIN` (accepts apex and `www`) and will also accept origins listed in the optional `ALLOW_ORIGIN` (comma-separated) for development/testing — update `wrangler.toml` if you need to allow localhost or other test origins.
 
 ## PR checklist suggestions
 - Include a short testing notes section in PRs describing how you tested the contact flow (JS on/off, worker tests, and any stubbing).

@@ -2,26 +2,63 @@ export interface Env {
   RESEND_API_KEY: string;
   TO_EMAIL: string;      // elemonatorgames@gmail.com
   FROM_EMAIL: string;    // e.g., web@egigames.com (verified domain)
-  ALLOW_ORIGIN: string;  // https://elemonatorgames.github.io
+  DOMAIN: string;  // elemonatorgames.com
+  ALLOW_ORIGIN?: string; // optional; comma-separated additional allowed origins (e.g., http://localhost:4321)
 }
 
-function cors(env: Env) {
+function buildCorsHeaders(allowedOrigin: string) {
   return {
-    "Access-Control-Allow-Origin": env.ALLOW_ORIGIN,
+    "Access-Control-Allow-Origin": allowedOrigin,
     "Access-Control-Allow-Methods": "POST,OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type"
   };
 }
 
+function getAllowedOrigin(originHeader: string, env: Env): string | null {
+  if (!originHeader) return null;
+  try {
+    const u = new URL(originHeader);
+    const host = u.hostname.toLowerCase();
+
+    // Accept apex and www (https)
+    if (host === env.DOMAIN || host === `www.${env.DOMAIN}`) {
+      return `${u.protocol}//${u.host}`;
+    }
+
+    // Allow localhost or 127.x dev origins
+    if (host === 'localhost' || host.startsWith('127.')) {
+      return `${u.protocol}//${u.host}`;
+    }
+
+    // Allow explicit ALLOW_ORIGIN entries (comma separated)
+    if (env.ALLOW_ORIGIN) {
+      const allowed = env.ALLOW_ORIGIN.split(/\s*,\s*/);
+      for (const a of allowed) {
+        if (originHeader.startsWith(a)) return a;
+      }
+    }
+  } catch (e) {
+    // ignore parse errors
+  }
+  return null;
+}
+
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
+    const originHeader = req.headers.get("Origin") || "";
+
     // Preflight
-    if (req.method === "OPTIONS") return new Response(null, { headers: cors(env) });
+    if (req.method === "OPTIONS") {
+      const allowed = getAllowedOrigin(originHeader, env);
+      if (!allowed) return new Response("Forbidden", { status: 403 });
+      return new Response(null, { headers: buildCorsHeaders(allowed) });
+    }
 
     if (req.method !== "POST") return new Response("Not Found", { status: 404 });
 
-    const origin = req.headers.get("Origin") || "";
-    if (!origin.startsWith(env.ALLOW_ORIGIN)) return new Response("Forbidden", { status: 403 });
+    const allowed = getAllowedOrigin(originHeader, env);
+    if (!allowed) return new Response("Forbidden", { status: 403 });
+    const allowedOrigin = allowed; // narrow type for inner closures
 
     const body = await req.text();
     const params = new URLSearchParams(body);
@@ -34,6 +71,9 @@ export default {
     const honeypot = (params.get("company") || "").trim();
     const ts = Number(params.get("ts") || "0");
     const token = params.get("token");
+
+    // helper for error responses with CORS headers
+    function bad(msg: string, status = 400) { return new Response(msg, { status, headers: buildCorsHeaders(allowedOrigin) }); }
 
     // basic validation & spam checks
     if (!name || !email || !message) return bad("Missing fields");
@@ -57,13 +97,13 @@ export default {
       })
     });
 
-  if (!res.ok) {
-    const text = await res.text();
-    console.error("Resend error", res.status, text);
-    return new Response("Email service error", { status: 502, headers: cors(env) });
-  }
-    return Response.redirect(`${env.ALLOW_ORIGIN}/thanks`, 303);
+    if (!res.ok) {
+      const text = await res.text();
+      console.error("Resend error", res.status, text);
+      return new Response("Email service error", { status: 502, headers: buildCorsHeaders(allowedOrigin) });
+    }
 
-    function bad(msg: string){ return new Response(msg, { status: 400, headers: cors(env) }); }
+    // Redirect to /thanks on the validated origin
+    return Response.redirect(`${allowedOrigin}/thanks`, 303);
   }
 };

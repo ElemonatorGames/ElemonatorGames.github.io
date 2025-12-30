@@ -5,7 +5,11 @@ compatibility_date = "2025-12-01"
 [vars]
 TO_EMAIL = "elemonatorgames@gmail.com"
 FROM_EMAIL = "contact@elemonatorgames.com"
-ALLOW_ORIGIN = "https://elemonatorgames.github.io"
+DOMAIN = "elemonatorgames.com"
+
+# Optional: allow additional origins for development/testing (comma-separated)
+# Example (uncomment locally for wrangler/dev):
+ALLOW_ORIGIN = "http://localhost:4321, http://127.0.0.1:4321"
 
 # NOTE: Set RESEND_API_KEY as a secret in Cloudflare dashboard / via wrangler.
 # Do NOT commit RESEND_API_KEY into git.
