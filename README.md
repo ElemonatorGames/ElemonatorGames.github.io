@@ -8,6 +8,9 @@ npm create astro@latest -- --template minimal
 
 ## 🚀 Project Structure
 
+**Note:** This repo received a small UI polish (Dec 2025) — contact form is now a boxed card with stacked fields, improved submit UX, and projects are displayed in a responsive card grid. See `CHANGELOG.md` or `.github/copilot-instructions.md` for testing notes and local worker instructions.
+
+
 Inside of your Astro project, you'll see the following folders and files:
 
 ```text
