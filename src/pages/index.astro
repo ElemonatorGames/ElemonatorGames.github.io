@@ -86,7 +86,11 @@ const title = "Elemonator Games Inc. – Game Co‑Development & Projects";
           try {
             const res = await fetch(form.action, {
               method: 'POST',
-              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+              },
               body: new URLSearchParams(new FormData(form)).toString()
             });
 

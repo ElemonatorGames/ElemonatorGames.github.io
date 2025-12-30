@@ -103,7 +103,18 @@ export default {
       return new Response("Email service error", { status: 502, headers: buildCorsHeaders(allowedOrigin) });
     }
 
-    // Redirect to /thanks on the validated origin
+    // If request looks like AJAX/fetch (client uses Accept: application/json or X-Requested-With),
+    // return a JSON success response (CORS headers included) so client JS can redirect client-side.
+    const accept = req.headers.get('Accept') || '';
+    const xRequested = req.headers.get('X-Requested-With') || '';
+    const isAjax = accept.includes('application/json') || xRequested === 'XMLHttpRequest';
+
+    if (isAjax) {
+      const headers = { ...buildCorsHeaders(allowedOrigin), 'Content-Type': 'application/json' } as Record<string, string>;
+      return new Response(JSON.stringify({ success: true }), { status: 200, headers });
+    }
+
+    // Non-AJAX (normal form POST) — redirect the browser to /thanks on the validated origin
     return Response.redirect(`${allowedOrigin}/thanks`, 303);
   }
 };
