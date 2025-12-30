@@ -4,52 +4,106 @@ const title = "Elemonator Games Inc. – Game Co‑Development & Projects";
 ---
 <Base {title}>
   <section aria-labelledby="hero">
-    <h1 id="hero">Elemonator Games Inc.</h1>
-    <p>NB‑based game studio helping teams ship—engineering, design, and art—plus two in‑house projects.</p>
-    <p>
-      <a href="/co-development" class="btn">Explore co‑dev packages</a>
-      <a href="/projects" class="btn" style="margin-left:.5rem;">See projects</a>
-      <a href="#contact" class="btn" style="margin-left:.5rem;">Contact</a>
-    </p>
+    <div class="card" aria-hidden="false">
+      <h1 id="hero">Elemonator Games Inc.</h1>
+      <p>NB‑based game studio helping teams ship—engineering, design, and art—plus two in‑house projects.</p>
+      <p>
+        <a href="/co-development" class="btn btn--primary">Explore co‑dev packages</a>
+        <a href="/projects" class="btn btn--ghost" style="margin-left:.5rem;">See projects</a>
+        <a href="#contact" class="btn btn--ghost" style="margin-left:.5rem;">Contact</a>
+      </p>
+    </div>
   </section>
 
   <section aria-labelledby="contact" id="contact">
     <h2 id="contact">Contact</h2>
 
-    <!-- Progressive enhancement; if Worker unavailable, mailto fallback below -->
-    <form action="https://egi-contact-worker.elemonatorgames.workers.dev/contact" method="POST">
-      <label for="name">Name</label>
-      <input id="name" name="name" required autocomplete="name" />
+    <div class="card contact-card" role="region" aria-labelledby="contact">
+      <form action="https://egi-contact-worker.elemonatorgames.workers.dev/contact" method="POST" novalidate>
+        <div class="form-field">
+          <label for="name" class="label">Name</label>
+          <input id="name" name="name" class="input" required autocomplete="name" />
+        </div>
 
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" required autocomplete="email" />
+        <div class="form-field">
+          <label for="email" class="label">Email</label>
+          <input id="email" name="email" type="email" class="input" required autocomplete="email" />
+        </div>
 
-      <label for="msg">Message</label>
-      <textarea id="msg" name="message" rows="6" required></textarea>
+        <div class="form-field">
+          <label for="msg" class="label">Message</label>
+          <textarea id="msg" name="message" class="textarea" rows="6" required></textarea>
+        </div>
 
-      <!-- Anti-spam -->
-      <input
-        type="text"
-        name="company"
-        tabindex="-1"
-        autocomplete="off"
-        aria-hidden="true"
-        style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"
-      />
-      <input type="hidden" name="token" value="egi-v1" />
-      <input type="hidden" name="ts" id="egi-ts" value="0" />
+        <!-- Anti-spam -->
+        <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+        <input type="hidden" name="token" value="egi-v1" />
+        <input type="hidden" name="ts" id="egi-ts" value="0" />
 
-      <button type="submit" class="btn">Send</button>
-      <p>
-        If this form fails, email us:
-        <a href="mailto:elemonatorgames@gmail.com">elemonatorgames@gmail.com</a>
-      </p>
-    </form>
+        <div class="form-actions">
+          <button type="submit" class="btn btn--primary">Send</button>
+        </div>
 
-    <script>
+        <p class="form-fallback">
+          If this form fails, email us: <a href="mailto:elemonatorgames@gmail.com">elemonatorgames@gmail.com</a>
+        </p>
+
+        <div class="form-status" aria-live="polite" hidden></div>
+      </form>
+    </div>
+
+    <script type="module">
       (function () {
-        var el = document.getElementById('egi-ts') as HTMLInputElement;
-        if (el) el.value = String(Date.now());
+        const form = document.querySelector('#contact form');
+        if (!form) return;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const status = form.querySelector('.form-status');
+        const tsEl = form.querySelector('input[name="ts"]');
+
+        // set initial timestamp
+        if (tsEl) tsEl.value = String(Date.now());
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          // rely on browser validation first
+          if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+          }
+
+          submitBtn.disabled = true;
+          if (tsEl) tsEl.value = String(Date.now());
+
+          status.hidden = false;
+          status.textContent = 'Sending…';
+
+          const spinner = document.createElement('span');
+          spinner.className = 'spinner';
+          submitBtn.appendChild(spinner);
+
+          try {
+            const res = await fetch(form.action, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: new URLSearchParams(new FormData(form)).toString()
+            });
+
+            if (res.ok || (res.status >= 200 && res.status < 400)) {
+              window.location.href = '/thanks';
+              return;
+            } else {
+              const text = await res.text();
+              status.innerHTML = 'Submission failed: ' + (text || res.statusText || 'Server error.');
+            }
+          } catch (err) {
+            console.error(err);
+            status.innerHTML = 'Network error. Try <a href="mailto:elemonatorgames@gmail.com">emailing us directly</a>.';
+          } finally {
+            submitBtn.disabled = false;
+            spinner.remove();
+          }
+        });
       })();
     </script>
   </section>
