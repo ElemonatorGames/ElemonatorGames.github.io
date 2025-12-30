@@ -13,25 +13,46 @@ const { title = "Elemonator Games Inc." } = Astro.props;
     <a class="skip" href="#main">Skip to content</a>
     <header role="banner" class="container">
       <h1 class="visually-hidden">Elemonator Games Inc.</h1>
-      <nav aria-label="Primary">
+      <nav aria-label="Primary" class="nav">
         <a href="/">Home</a>
         <a href="/co-development">Co-development</a>
         <a href="/projects">Projects</a>
       </nav>
+      <script type="module">
+        (function () {
+          try {
+            const nav = document.querySelector('nav[aria-label="Primary"]');
+            if (!nav) return;
+            const links = nav.querySelectorAll('a');
+            links.forEach(a => {
+              try {
+                const url = new URL(a.href, location.origin);
+                if (url.pathname === location.pathname) {
+                  a.classList.add('active');
+                  a.setAttribute('aria-current', 'page');
+                }
+              } catch (e) {
+                // ignore
+              }
+            });
+          } catch (e) {
+            // ignore
+          }
+        })();
+      </script>
     </header>
     <main id="main" class="container">
       <slot />
     </main>
     <footer role="contentinfo" class="container">
-      <p>© {new Date().getFullYear()} EGI</p>
-      <ul aria-label="Socials and developer spaces">
-        <!-- TODO: replace '#' with real URLs when available -->
-        <li><!-- TODO: Twitter URL --><a href="#" target="_blank" rel="noopener noreferrer">Twitter</a></li>
-        <li><!-- TODO: Discord invite --><a href="#" target="_blank" rel="noopener noreferrer">Discord</a></li>
-        <li><!-- TODO: Steam developer/publisher page URL --><a href="#" target="_blank" rel="noopener noreferrer">Steam</a></li>
-        <li><!-- TODO: LinkedIn company URL --><a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-        <li><!-- TODO: Itch.io profile URL --><a href="#" target="_blank" rel="noopener noreferrer">Itch.io</a></li>
+      <ul class="social-list" aria-label="Socials and developer spaces">
+        <li><a href="#" class="social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><span class="visually-hidden">Twitter</span><span class="social-icon" aria-hidden="true">T</span></a></li>
+        <li><a href="#" class="social-link" aria-label="Discord" target="_blank" rel="noopener noreferrer"><span class="visually-hidden">Discord</span><span class="social-icon" aria-hidden="true">D</span></a></li>
+        <li><a href="#" class="social-link" aria-label="Steam" target="_blank" rel="noopener noreferrer"><span class="visually-hidden">Steam</span><span class="social-icon" aria-hidden="true">S</span></a></li>
+        <li><a href="#" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><span class="visually-hidden">LinkedIn</span><span class="social-icon" aria-hidden="true">in</span></a></li>
+        <li><a href="#" class="social-link" aria-label="Itch.io" target="_blank" rel="noopener noreferrer"><span class="visually-hidden">Itch.io</span><span class="social-icon" aria-hidden="true">i</span></a></li>
       </ul>
+      <p class="footer-copy">© {new Date().getFullYear()} EGI</p>
     </footer>
   </body>
 </html>
