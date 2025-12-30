@@ -36,7 +36,14 @@ a, button { min-width: 44px; min-height: 44px; }
 h1,h2,h3 { letter-spacing: -.015em; }
 
 /* Centering utility for form actions */
-.form-actions--center { justify-content: center; }
+.form-actions--center { justify-content: center; width: 100%; }
+
+/* Make centered buttons slightly wider and visually balanced */
+.form-actions--center .btn { min-width: 220px; padding: .75rem 1.25rem; display: inline-flex; justify-content: center; }
+
+@media (max-width: 600px) {
+  .form-actions--center .btn { min-width: 160px; padding: .65rem 1rem; }
+}
 
 /* Button variant: only turn green on hover */
 .btn--hover-green { background: transparent; color: inherit; border: 1px solid rgba(255,255,255,0.06); }
