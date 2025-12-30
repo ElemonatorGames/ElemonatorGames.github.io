@@ -3,9 +3,24 @@ import Base from "../../layouts/Base.astro";
 ---
 <Base title="Projects — EGI">
   <h1>Projects</h1>
-  <p>Filter by In‑house / Co‑dev, platform, engine, year. (Content TBD)</p>
-  <ul>
-    <li>Project Lightning — In‑house — Unreal — PC</li>
-    <li>Project Aurora — Co‑dev — Unity — Multi‑platform</li>
-  </ul>
+  <p>Filter by In‑house / Co‑dev, platform, engine, year.</p>
+
+  <div class="card-grid">
+    <article class="project-card">
+      <img src="/placeholders/800x450.svg" alt="Project Lightning placeholder image" />
+      <h3>Project Lightning</h3>
+      <p class="meta">In‑house • Unreal • PC • 2025</p>
+      <p>High-performance multiplayer prototype focusing on core mechanics and netcode.</p>
+      <p><a class="btn btn--ghost" href="#">Learn more</a></p>
+    </article>
+
+    <article class="project-card">
+      <img src="/placeholders/800x450.svg" alt="Project Aurora placeholder image" />
+      <h3>Project Aurora</h3>
+      <p class="meta">Co‑dev • Unity • Multi‑platform • 2024</p>
+      <p>Co-development title focused on narrative-driven coop gameplay and modular systems.</p>
+      <p><a class="btn btn--ghost" href="#">Learn more</a></p>
+    </article>
+  </div>
+
 </Base>

@@ -25,12 +25,26 @@ a, button { min-width: 44px; min-height: 44px; }
 .btn--ghost { background: transparent; color: var(--fg); border: 1px solid rgba(255,255,255,0.06); }
 .btn:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(135,255,69,0.12); border-radius: .5rem; }
 
+.nav { display: flex; gap: 1rem; align-items: center; }
+.nav a { color: var(--fg); text-decoration: none; padding: .35rem .5rem; border-radius: .4rem; }
+.nav a:hover { background: rgba(255,255,255,0.02); }
+.nav a:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(135,255,69,0.12); }
+.nav a.active { background: rgba(135,255,69,0.12); font-weight: 600; box-shadow: inset 0 -2px 0 rgba(135,255,69,0.25); }
+@media (max-width: 600px) { .nav { gap: .5rem; flex-wrap: wrap; } }
+
 h1,h2,h3 { letter-spacing: -.015em; }
 
 /* Component styles: cards, forms, inputs, buttons */
 .card { background: rgba(255,255,255,0.03); padding: 1.25rem; border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.04); box-shadow: 0 6px 18px rgba(0,0,0,0.45); }
 .contact-card { max-width: 700px; margin: 0.75rem auto 0; }
 .card-grid { display:grid; gap:1rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); align-items: start; }
+
+.project-card { background: rgba(255,255,255,0.02); padding: .75rem; border-radius: .8rem; border: 1px solid rgba(255,255,255,0.03); display:flex; flex-direction:column; gap:.5rem; transition: transform .12s ease, box-shadow .12s ease; }
+.project-card img { width:100%; height:160px; object-fit:cover; border-radius:.5rem; background: rgba(255,255,255,0.02); }
+.project-card h3 { margin: 0; font-size: 1.05rem; }
+.project-card p { color: var(--muted); margin:0; font-size:.95rem; }
+.project-card .meta { font-size:.85rem; color:var(--muted); }
+.project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.5); }
 
 .form-field { margin-bottom: .75rem; display: flex; flex-direction: column; gap: .35rem; }
 .label { font-size: .95rem; color: var(--muted); }
