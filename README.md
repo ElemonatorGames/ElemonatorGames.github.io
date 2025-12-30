@@ -8,6 +8,9 @@ npm create astro@latest -- --template minimal
 
 ## 🚀 Project Structure
 
+**Note:** This repo received a small UI polish (Dec 2025) — contact form is now a boxed card with stacked fields, improved submit UX, and projects are displayed in a responsive card grid. See `CHANGELOG.md` or `.github/copilot-instructions.md` for testing notes and local worker instructions.
+
+
 Inside of your Astro project, you'll see the following folders and files:
 
 ```text
@@ -41,3 +44,7 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## 🖼️ Assets & Icons
+
+Brand icons placed in `public/icons/` are from **Font Awesome Free** and are used under their license (icons: CC BY 4.0). See https://fontawesome.com/license/free for details.
