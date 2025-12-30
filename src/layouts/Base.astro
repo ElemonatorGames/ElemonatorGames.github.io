@@ -11,13 +11,15 @@ const { title = "Elemonator Games Inc." } = Astro.props;
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
-    <header role="banner" class="container">
-      <h1 class="visually-hidden">Elemonator Games Inc.</h1>
-      <nav aria-label="Primary" class="nav">
-        <a href="/">Home</a>
-        <a href="/co-development">Co-development</a>
-        <a href="/projects">Projects</a>
-      </nav>
+    <header role="banner" class="site-header" data-header>
+      <div class="container header-inner">
+        <h1 class="visually-hidden">Elemonator Games Inc.</h1>
+        <nav aria-label="Primary" class="nav">
+          <a href="/">Home</a>
+          <a href="/co-development">Co-development</a>
+          <a href="/projects">Projects</a>
+        </nav>
+      </div>
       <script type="module">
         (function () {
           try {
@@ -35,6 +37,58 @@ const { title = "Elemonator Games Inc." } = Astro.props;
                 // ignore
               }
             });
+          } catch (e) {
+            // ignore
+          }
+        })();
+      </script>
+      <script type="module">
+        (function () {
+          try {
+            const header = document.querySelector('.site-header[data-header]');
+            if (!header) return;
+            let lastY = window.scrollY;
+            let ticking = false;
+            let stopTimer = null;
+            const threshold = 5;
+
+            function handleScroll() {
+              const currentY = window.scrollY;
+              const delta = currentY - lastY;
+
+              // Small deltas are treated as stop to avoid flicker
+              if (Math.abs(delta) < threshold) {
+                lastY = currentY;
+                clearTimeout(stopTimer);
+                stopTimer = setTimeout(() => {
+                  header.style.opacity = '1';
+                }, 150);
+                return;
+              }
+
+              if (delta > 0) {
+                // scrolling down
+                header.style.opacity = '0.5';
+              } else {
+                // scrolling up
+                header.style.opacity = '1';
+              }
+
+              lastY = currentY;
+              clearTimeout(stopTimer);
+              stopTimer = setTimeout(() => {
+                header.style.opacity = '1';
+              }, 150);
+
+              ticking = false;
+            }
+
+            window.addEventListener('scroll', function () {
+              if (!ticking) {
+                window.requestAnimationFrame(handleScroll);
+                ticking = true;
+              }
+            }, { passive: true });
           } catch (e) {
             // ignore
           }

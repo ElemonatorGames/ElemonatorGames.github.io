@@ -20,6 +20,13 @@ a, button { min-width: 44px; min-height: 44px; }
 .skip:focus { left:1rem; top:1rem; width:auto; height:auto; padding:.5rem 1rem; background:#000; color:#fff; }
 
 .container { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+/* Site header: fixed to top, responsive height and smooth opacity transitions */
+:root { --header-height: 64px; }
+.site-header { position: fixed; top: 0; left: 0; right: 0; height: var(--header-height); z-index: 999; background: rgba(11,11,12,0.85); backdrop-filter: blur(6px); transition: opacity .18s ease, transform .12s ease; opacity: 1; }
+.site-header .container { display:flex; align-items:center; justify-content:space-between; height:100%; }
+@media (max-width: 600px) { :root { --header-height: 56px; } }
+main#main { padding-top: var(--header-height); }
+
 .btn { display:inline-flex; align-items:center; gap:.5rem; padding:.65rem 1rem; border-radius:.6rem; border: 1px solid rgba(255,255,255,0.06); text-decoration: none; transition: transform .08s ease, box-shadow .12s ease, opacity .12s ease; cursor: pointer; background: transparent; color: inherit; }
 .btn:hover { transform: translateY(-1px); }
 .btn:active { transform: translateY(0); opacity: .95; }
