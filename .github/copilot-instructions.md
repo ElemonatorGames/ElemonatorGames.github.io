@@ -81,6 +81,7 @@ Agent tasks related to the worker:
 - `functions/wrangler.toml` — worker config and env var notes
 - `functions/src/contact.ts` — worker implementation and validation logic
 - `.github/workflows/deploy.yml` — automatic GitHub Pages deployment
+- `public/icons/` — Brand icons (Font Awesome Free - icons: CC BY 4.0). Add attribution when reusing elsewhere.
 
 ---
 If anything above is unclear or you'd like additional, more detailed snippets (e.g., example `wrangler` commands, a sample local worker test flow, or typical PR checklist items), tell me which part to expand and I’ll iterate.
