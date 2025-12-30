@@ -72,14 +72,29 @@ export default {
     const ts = Number(params.get("ts") || "0");
     const token = params.get("token");
 
-    // helper for error responses with CORS headers
-    function bad(msg: string, status = 400) { return new Response(msg, { status, headers: buildCorsHeaders(allowedOrigin) }); }
+    // Determine whether request is AJAX (fetch) for JSON responses
+    const accept = req.headers.get('Accept') || '';
+    const xRequested = req.headers.get('X-Requested-With') || '';
+    const isAjax = accept.includes('application/json') || xRequested === 'XMLHttpRequest';
+
+    // helper for error responses with CORS headers — return JSON on AJAX requests
+    function bad(msg: string, status = 400) {
+      const headers = buildCorsHeaders(allowedOrigin);
+      if (isAjax) {
+        (headers as Record<string, string>)["Content-Type"] = "application/json";
+        return new Response(JSON.stringify({ success: false, error: msg }), { status, headers });
+      }
+      return new Response(msg, { status, headers: buildCorsHeaders(allowedOrigin) });
+    }
 
     // basic validation & spam checks
     if (!name || !email || !message) return bad("Missing fields");
     if (honeypot) return bad("Bot");
     if (token !== "egi-v1") return bad("Token");
     if (!Number.isFinite(ts) || Date.now() - ts < 4000) return bad("Too fast");
+
+    // Ensure the Resend API key is configured
+    if (!env.RESEND_API_KEY) return bad("Server misconfiguration: RESEND_API_KEY missing", 500);
 
     // send via Resend REST
     const res = await fetch("https://api.resend.com/emails", {
@@ -100,15 +115,10 @@ export default {
     if (!res.ok) {
       const text = await res.text();
       console.error("Resend error", res.status, text);
-      return new Response("Email service error", { status: 502, headers: buildCorsHeaders(allowedOrigin) });
+      return bad("Email service error", 502);
     }
 
-    // If request looks like AJAX/fetch (client uses Accept: application/json or X-Requested-With),
-    // return a JSON success response (CORS headers included) so client JS can redirect client-side.
-    const accept = req.headers.get('Accept') || '';
-    const xRequested = req.headers.get('X-Requested-With') || '';
-    const isAjax = accept.includes('application/json') || xRequested === 'XMLHttpRequest';
-
+    // If request looks like AJAX/fetch, return a JSON success response (CORS headers included)
     if (isAjax) {
       const headers = { ...buildCorsHeaders(allowedOrigin), 'Content-Type': 'application/json' } as Record<string, string>;
       return new Response(JSON.stringify({ success: true }), { status: 200, headers });
