@@ -5,13 +5,33 @@ import Base from "../../layouts/Base.astro";
   <h1>Blog</h1>
   <p>Insights, tutorials, and updates from Elemonator Games Inc.</p>
 
-  <section class="card-grid">
-    <article class="card project-card">
-      <h3><a href="/blog/getting-started-with-game-dev">Getting Started with Game Development</a></h3>
-      <p class="meta">January 21, 2026</p>
-      <p>An introduction to the basics of game development, covering tools, concepts, and first steps for aspiring developers.</p>
-    </article>
+  <div class="blog-posts-container">
+    <section class="card-grid">
+      <article class="card project-card">
+        <h3><a href="/blog/getting-started-with-game-dev">Getting Started with Game Development</a></h3>
+        <p class="meta">January 21, 2026</p>
+        <p>An introduction to the basics of game development, covering tools, concepts, and first steps for aspiring developers.</p>
+      </article>
 
-    <!-- Add more posts here as needed -->
-  </section>
+      <!-- Add more posts here as needed -->
+    </section>
+  </div>
 </Base>
+
+<style>
+.blog-posts-container {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 0.5rem 0;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 600px) {
+  .blog-posts-container {
+    max-height: none;
+    overflow-y: visible;
+  }
+}
+</style>

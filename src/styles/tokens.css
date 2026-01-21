@@ -98,6 +98,113 @@ h1,h2,h3 { letter-spacing: -.015em; }
 .hp { position: absolute !important; left: -10000px !important; top: auto !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
 
 h1 { font-size: var(--size-h1); margin-bottom: .25rem; }
+
+/* Footer styles */
+.site-footer {
+  background: rgba(11, 11, 12, 0.9);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem 0 1rem;
+  margin-top: 4rem;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-section h3, .footer-section h4 {
+  color: var(--fg);
+  margin-bottom: 1rem;
+}
+
+.footer-section h3 {
+  font-size: 1.25rem;
+}
+
+.footer-section h4 {
+  font-size: 1rem;
+}
+
+.footer-section p, .footer-section ul {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-section a:hover {
+  color: var(--accent);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1rem;
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.social-list {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  transition: background 0.2s ease;
+}
+
+.social-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--fg);
+}
+
+.footer-copy {
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .social-list {
+    justify-content: center;
+  }
+}
 h2 { font-size: var(--size-h2); margin-top: 1rem; margin-bottom: .5rem; }
 
 /* Footer / socials */
