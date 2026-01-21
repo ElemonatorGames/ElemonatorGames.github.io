@@ -6,24 +6,184 @@ import Base from "../layouts/Base.astro";
   <p>We partner with teams at any stage — from early ideation and prototyping through to full production support and live ops. Below are example packages and the outcomes you can expect from each engagement.</p>
 
   <section class="card-grid">
-    <article class="card project-card">
+    <article class="card project-card" data-package="discovery">
       <h3>Discovery & Prototyping</h3>
       <p class="meta">2–4 week sprint</p>
       <p>Rapid concept validation with playable prototypes and a clear scope for further development. We focus on riskiest assumptions first to avoid long-term rework.</p>
     </article>
 
-    <article class="card project-card">
+    <article class="card project-card" data-package="engineering">
       <h3>Engineering Sprint Support</h3>
       <p class="meta">4–12 week engagements</p>
       <p>Dedicated engineers to help with core systems, optimization, and platform integration. We pack focused milestones and demos to keep momentum without scope creep.</p>
     </article>
 
-    <article class="card project-card">
+    <article class="card project-card" data-package="design">
       <h3>Design & Art Co‑Creation</h3>
       <p class="meta">Flexible scope</p>
       <p>Collaborative design sprints, art direction, and asset pipelines that fit your needs. We provide iterative deliverables and clear acceptance criteria to avoid endless scrolling.</p>
     </article>
   </section>
 
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <h2 id="modal-title"></h2>
+      <p id="modal-meta"></p>
+      <div id="modal-description"></div>
+      <div class="form-actions form-actions--center" style="margin-top: 1.5rem;">
+        <a href="/#contact" class="btn btn--primary">Schedule a Meeting</a>
+      </div>
+    </div>
+  </div>
+
   <p class="form-actions form-actions--center"><a href="#contact" class="btn btn--hover-green">Contact us</a></p>
 </Base>
+
+<style>
+.project-card {
+  cursor: pointer;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--bg);
+  padding: 2rem;
+  border-radius: var(--radius);
+  max-width: 600px;
+  width: 90%;
+  position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--fg);
+  width: auto;
+  height: auto;
+  min-width: auto;
+  min-height: auto;
+}
+
+.modal-close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+</style>
+
+<script>
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modal-title');
+const modalMeta = document.getElementById('modal-meta');
+const modalDescription = document.getElementById('modal-description');
+
+const packageDetails = {
+  discovery: {
+    description: `
+      <p>Rapid concept validation with playable prototypes and a clear scope for further development. We focus on riskiest assumptions first to avoid long-term rework.</p>
+      <h4>What's Included:</h4>
+      <ul>
+        <li>Initial consultation and requirement gathering</li>
+        <li>Prototype development with core mechanics</li>
+        <li>User testing and feedback sessions</li>
+        <li>Technical feasibility assessment</li>
+        <li>Roadmap for full development</li>
+      </ul>
+      <h4>Expected Outcomes:</h4>
+      <ul>
+        <li>Validated game concept</li>
+        <li>Playable prototype</li>
+        <li>Clear development plan</li>
+      </ul>
+    `
+  },
+  engineering: {
+    description: `
+      <p>Dedicated engineers to help with core systems, optimization, and platform integration. We pack focused milestones and demos to keep momentum without scope creep.</p>
+      <h4>What's Included:</h4>
+      <ul>
+        <li>Dedicated engineering resources</li>
+        <li>Milestone planning and tracking</li>
+        <li>Code reviews and best practices</li>
+        <li>Performance optimization</li>
+        <li>Platform-specific integration</li>
+      </ul>
+      <h4>Expected Outcomes:</h4>
+      <ul>
+        <li>Robust core systems</li>
+        <li>Optimized performance</li>
+        <li>Successful platform launches</li>
+      </ul>
+    `
+  },
+  design: {
+    description: `
+      <p>Collaborative design sprints, art direction, and asset pipelines that fit your needs. We provide iterative deliverables and clear acceptance criteria to avoid endless scrolling.</p>
+      <h4>What's Included:</h4>
+      <ul>
+        <li>Design workshops and brainstorming</li>
+        <li>Art direction and style guides</li>
+        <li>Asset creation and pipelines</li>
+        <li>Iterative feedback loops</li>
+        <li>Quality assurance for visuals</li>
+      </ul>
+      <h4>Expected Outcomes:</h4>
+      <ul>
+        <li>Cohesive visual identity</li>
+        <li>Comprehensive asset library</li>
+        <li>Polished game aesthetics</li>
+      </ul>
+    `
+  }
+};
+
+document.querySelectorAll('.project-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const packageKey = card.dataset.package;
+    const h3 = card.querySelector('h3').textContent;
+    const meta = card.querySelector('.meta').textContent;
+    
+    modalTitle.textContent = h3;
+    modalMeta.textContent = meta;
+    modalDescription.innerHTML = packageDetails[packageKey].description;
+    modal.style.display = 'flex';
+    modal.focus();
+  });
+});
+
+document.querySelector('.modal-close').addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    modal.style.display = 'none';
+  }
+});
+
+// Keyboard accessibility
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modal.style.display === 'flex') {
+    modal.style.display = 'none';
+  }
+});
+</script>
