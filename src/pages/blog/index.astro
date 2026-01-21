@@ -1,7 +1,11 @@
 ---
 import Base from "../../layouts/Base.astro";
 ---
-<Base title="Blog — EGI" description="Read insights, tutorials, and updates from Elemonator Games Inc. on game development, co-development strategies, and industry trends.">
+
+<Base
+  title="Blog — EGI"
+  description="Read insights, tutorials, and updates from Elemonator Games Inc. on game development, co-development strategies, and industry trends."
+>
   <!-- Editable blog index: page headline and intro summary -->
   <h1>Blog</h1>
   <p>Insights, tutorials, and updates from Elemonator Games Inc.</p>
@@ -10,9 +14,12 @@ import Base from "../../layouts/Base.astro";
     <section class="card-grid">
       <article class="card project-card">
         <!-- Editable blog index card: post title, date, and summary -->
-        <h3><a href="/blog/getting-started-with-game-dev">Getting Started with Game Development</a></h3>
-        <p class="meta">January 21, 2026</p>
-        <p>An introduction to the basics of game development, covering tools, concepts, and first steps for aspiring developers.</p>
+        <h3><a href="/blog/septnewsletter">September Newsletter</a></h3>
+        <p class="meta">October 1, 2025</p>
+        <p>
+          Our monthly newsletter covering recent milestones and upcoming
+          opportunities.
+        </p>
       </article>
 
       <!-- Editable blog index: add additional post cards here as new articles are published -->
@@ -21,19 +28,19 @@ import Base from "../../layouts/Base.astro";
 </Base>
 
 <style>
-.blog-posts-container {
-  max-height: 70vh;
-  overflow-y: auto;
-  padding: 0.5rem 0;
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-@media (max-width: 600px) {
   .blog-posts-container {
-    max-height: none;
-    overflow-y: visible;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 0.5rem 0;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
   }
-}
+
+  @media (max-width: 600px) {
+    .blog-posts-container {
+      max-height: none;
+      overflow-y: visible;
+    }
+  }
 </style>

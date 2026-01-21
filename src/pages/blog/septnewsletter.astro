@@ -1,0 +1,61 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+---
+
+<Base title="September Newsletter — EGI" description="Our monthly newsletter.">
+  <Breadcrumb
+    items={[
+      { label: "Home", href: "/" },
+      { label: "Blog", href: "/blog" },
+      { label: "September Newsletter" },
+    ]}
+  />
+  <!-- Editable blog post content: editorial headline, date, and article body copy -->
+  <article>
+    <header>
+      <h1>September Newsletter</h1>
+      <p class="meta">Published on October 1, 2025</p>
+    </header>
+
+    <ul>
+      <li>Projects in development: 0 ➡️ 1</li>
+      <li>Projects Funded: 0 ➡️ 1</li>
+      <li>Team Size: 1 ➡️ 3</li>
+      <li>B2B Contracts (negotiation): 0 ➡️ 2</li>
+    </ul>
+
+    <p>
+      September marks a number of milestones for Elemonator Games Inc. (EGI)
+      Thanks to InteractiveNB partnering with Shred Consulting, EGI was able to
+      work with Shred Consulting to submit a wickedly successful CMF application
+      for our project Tidebound. We now officially have a funded runway to start
+      honing in on the next hit game! But this is just the start.
+    </p>
+
+    <p>
+      It has also been confirmed that Shred Consulting is running their Scaffold
+      Institute Cohort starting October that eligible NB studios have a chance
+      to participate in. This program aims to empower studios with tools,
+      mentorships, and global market access in order for them to thrive. EGI is
+      super excited to participate in this four-month program so we can really
+      level up as a studio and build a stronger network.
+    </p>
+
+    <p>
+      Now that the ball is rolling, the needs are starting to appear in front of
+      us. <b
+        >We are looking for 2-3 artists and creatives to help our projects
+        visually come to life!</b
+      > This is our biggest need to date. Following this need, we would also love
+      to connect with people who have market research skills to help us hone in and
+      connect with our target audience.
+    </p>
+
+    <p>
+      If you’d like to connect with us for any reason at all (dropping off a CV,
+      project details, general chatter, etc.), don’t hesitate to connect with us
+      on LinkedIn or email us at elemonatorgames@gmail.com.
+    </p>
+  </article>
+</Base>
