@@ -2,23 +2,27 @@
 import Base from "../layouts/Base.astro";
 ---
 <Base title="Co‑Development Packages — EGI" description="Explore our co-development packages for game studios at any stage. From discovery and prototyping to full production support and live operations.">
+  <!-- Editable co-development page: headline and intro copy describing package overview -->
   <h1>Co‑Development Packages</h1>
   <p>We partner with teams at any stage — from early ideation and prototyping through to full production support and live ops. Below are example packages and the outcomes you can expect from each engagement.</p>
 
   <section class="card-grid">
     <article class="card project-card" data-package="discovery">
+      <!-- Editable co-development package card: discovery package title and summary copy -->
       <h3>Discovery & Prototyping</h3>
       <p class="meta">2–4 week sprint</p>
       <p>Rapid concept validation with playable prototypes and a clear scope for further development. We focus on riskiest assumptions first to avoid long-term rework.</p>
     </article>
 
     <article class="card project-card" data-package="engineering">
+      <!-- Editable co-development package card: engineering package title and summary copy -->
       <h3>Engineering Sprint Support</h3>
       <p class="meta">4–12 week engagements</p>
       <p>Dedicated engineers to help with core systems, optimization, and platform integration. We pack focused milestones and demos to keep momentum without scope creep.</p>
     </article>
 
     <article class="card project-card" data-package="design">
+      <!-- Editable co-development package card: design/art package title and summary copy -->
       <h3>Design & Art Co‑Creation</h3>
       <p class="meta">Flexible scope</p>
       <p>Collaborative design sprints, art direction, and asset pipelines that fit your needs. We provide iterative deliverables and clear acceptance criteria to avoid endless scrolling.</p>
@@ -28,6 +32,7 @@ import Base from "../layouts/Base.astro";
   <div id="modal" class="modal">
     <div class="modal-content">
       <button class="modal-close" aria-label="Close modal">&times;</button>
+      <!-- Editable co-development modal: package title, timeline, and detailed description text -->
       <h2 id="modal-title"></h2>
       <p id="modal-meta"></p>
       <div id="modal-description"></div>
@@ -96,6 +101,7 @@ const modalTitle = document.getElementById('modal-title');
 const modalMeta = document.getElementById('modal-meta');
 const modalDescription = document.getElementById('modal-description');
 
+// Editable co-development modal copy: package descriptions, inclusions, and outcomes
 const packageDetails = {
   discovery: {
     description: `
