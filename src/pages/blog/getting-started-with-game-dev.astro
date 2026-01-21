@@ -1,7 +1,14 @@
 ---
 import Base from "../../layouts/Base.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
 ---
-<Base title="Getting Started with Game Development — EGI">
+<Base title="Getting Started with Game Development — EGI" description="A beginner's guide to game development: essential tools, learning paths, and first steps to create your own games.">
+  <Breadcrumb items={[
+    { label: "Home", href: "/" },
+    { label: "Blog", href: "/blog" },
+    { label: "Getting Started with Game Development" }
+  ]} />
+  <!-- Editable blog post content: editorial headline, date, and article body copy -->
   <article>
     <header>
       <h1>Getting Started with Game Development</h1>

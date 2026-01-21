@@ -1,26 +1,53 @@
 ---
 import Base from "../../layouts/Base.astro";
 ---
-<Base title="Projects — EGI">
+
+<Base
+  title="Projects — EGI"
+  description="Discover our in-house game projects and co-development work. From multiplayer prototypes to narrative-driven experiences across multiple platforms."
+>
+  <!-- Editable projects index: page headline and filtering helper text -->
   <h1>Projects</h1>
   <p>Filter by In‑house / Co‑dev, platform, engine, year.</p>
 
   <div class="card-grid">
     <article class="project-card">
-      <img src="/placeholders/800x450.svg" alt="Project Lightning placeholder image" />
-      <h3>Project Lightning</h3>
-      <p class="meta">In‑house • Unreal • PC • 2025</p>
-      <p>High-performance multiplayer prototype focusing on core mechanics and netcode.</p>
-      <p><a class="btn btn--ghost btn--hover-green" href="/projects/lightning">Learn more</a></p>
+      <!-- Editable projects index card: placeholder image and summary for Project Tidebound -->
+      <img
+        src="/placeholders/800x450.svg"
+        alt="Project Tidebound placeholder image"
+      />
+      <h3>Tidebound</h3>
+      <p class="meta">In‑house • Web5 • Multiplayer • 2025</p>
+      <p>
+        You've been stranded on a mysterious island. Can you survive long enough
+        to uncover the secret of the island and restore the tides?
+      </p>
+      <p>
+        <a class="btn btn--ghost btn--hover-green" href="/projects/tidebound"
+          >Learn more</a
+        >
+      </p>
     </article>
 
     <article class="project-card">
-      <img src="/placeholders/800x450.svg" alt="Project Aurora placeholder image" />
-      <h3>Project Aurora</h3>
-      <p class="meta">Co‑dev • Unity • Multi‑platform • 2024</p>
-      <p>Co-development title focused on narrative-driven coop gameplay and modular systems.</p>
-      <p><a class="btn btn--ghost btn--hover-green" href="/projects/aurora">Learn more</a></p>
+      <!-- Editable projects index card: placeholder image and summary for Operation Housework -->
+      <img
+        src="/placeholders/800x450.svg"
+        alt="Operation Housework placeholder image"
+      />
+      <h3>Operation Housework</h3>
+      <p class="meta">In-house • Unreal • Multiplayer • 2025</p>
+      <p>
+        Co-development title focused on narrative-driven coop gameplay and
+        modular systems.
+      </p>
+      <p>
+        <a
+          class="btn btn--ghost btn--hover-green"
+          href="/projects/operationhousework">Learn more</a
+        >
+      </p>
     </article>
   </div>
-
 </Base>
