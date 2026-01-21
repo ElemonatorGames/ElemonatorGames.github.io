@@ -62,23 +62,54 @@ const ogImage = "/placeholders/800x450.svg";
         const status = form.querySelector('.form-status');
         const tsEl = form.querySelector('input[name="ts"]');
 
-        // set initial timestamp
-        // if (tsEl) tsEl.value = String(Date.now());
+        // Set initial timestamp on page load
+        if (tsEl) tsEl.value = String(Date.now());
+
+        // Update timestamp on form interaction to prevent stale timestamps
+        // Also handle has-content class for textarea
+        const inputs = form.querySelectorAll('input, textarea');
+        const textarea = form.querySelector('#msg');
+        inputs.forEach(input => {
+          input.addEventListener('input', () => {
+            if (tsEl) tsEl.value = String(Date.now());
+            // Update has-content class for textarea
+            if (textarea && input === textarea) {
+              if (textarea.value.trim().length > 0) {
+                textarea.classList.add('has-content');
+              } else {
+                textarea.classList.remove('has-content');
+              }
+            }
+          });
+        });
+
+        // Set initial has-content state for textarea
+        if (textarea) {
+          if (textarea.value.trim().length > 0) {
+            textarea.classList.add('has-content');
+          }
+        }
 
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
 
-          // rely on browser validation first
+          // Clear any previous status
+          status.hidden = true;
+          status.classList.remove('form-status--error');
+          status.textContent = '';
+
+          // Mark form as validated to show validation styles
+          form.classList.add('validated');
+
+          // Rely on browser validation first
           if (!form.checkValidity()) {
             form.reportValidity();
             return;
           }
 
           submitBtn.disabled = true;
-
-          status.hidden = false;
-          status.classList.remove('form-status--error');
-          status.textContent = 'Sending…';
+          submitBtn.textContent = 'Sending…';
+          form.classList.add('submitting');
 
           const spinner = document.createElement('span');
           spinner.className = 'spinner';
@@ -112,11 +143,14 @@ const ogImage = "/placeholders/800x450.svg";
             console.error(err);
             status.textContent = 'Network error. Please try again, or email us directly at elemonatorgames@gmail.com.';
             status.classList.add('form-status--error');
+            status.hidden = false;
             status.tabIndex = -1;
             status.focus();
           } finally {
             submitBtn.disabled = false;
+            submitBtn.textContent = 'Send';
             spinner.remove();
+            form.classList.remove('submitting');
           }
         });
       })();
