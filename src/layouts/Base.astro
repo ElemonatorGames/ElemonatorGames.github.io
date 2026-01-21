@@ -160,6 +160,15 @@ const canonicalUrl = url || new URL(Astro.request.url).origin + Astro.request.ur
         </li>
       </ul>
       <p class="footer-copy">© {new Date().getFullYear()} EGI</p>
+      <p class="footer-links" aria-label="Legal and contact links">
+        <a href="/privacy-policy">Privacy Policy</a>
+        <span aria-hidden="true">•</span>
+        <a href="/terms-of-service">Terms of Service</a>
+        <span aria-hidden="true">•</span>
+        <a href="/cookie-policy">Cookie Policy</a>
+        <span aria-hidden="true">•</span>
+        <a href="/contact">Contact Information</a>
+      </p>
     </footer>
   </body>
 </html>
