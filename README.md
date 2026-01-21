@@ -1,36 +1,29 @@
-# Astro Starter Kit: Minimal
+# Elemonator Games Inc. — Astro Site
 
-```sh
-npm create astro@latest -- --template minimal
-```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Marketing site for Elemonator Games Inc., built with Astro.
 
 ## 🚀 Project Structure
-
-**Note:** This repo received a small UI polish (Dec 2025) — contact form is now a boxed card with stacked fields, improved submit UX, and projects are displayed in a responsive card grid. See `CHANGELOG.md` or `.github/copilot-instructions.md` for testing notes and local worker instructions.
-
-
-Inside of your Astro project, you'll see the following folders and files:
 
 ```text
 /
 ├── public/
 ├── src/
-│   └── pages/
-│       └── index.astro
+│   ├── components/
+│   ├── layouts/
+│   ├── pages/
+│   │   ├── blog/
+│   │   ├── projects/
+│   │   ├── index.astro
+│   │   └── co-development.astro
+│   └── styles/
 └── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
+- **Pages** live in `src/pages/` and map to routes by filename.
+- **Static assets** (images, icons) live in `public/`.
+- **Global layout** defaults and metadata live in `src/layouts/Base.astro`.
 
 ## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
@@ -41,9 +34,25 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
+## ✍️ Content Updates
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### Add a new project
+
+1. **Create a detail page** in `src/pages/projects/` using the existing pages as a template (e.g., `lightning.astro`).
+2. **Update the projects index** at `src/pages/projects/index.astro` by adding a new card with your project title, metadata, summary, and link.
+3. **Add imagery** under `public/` and update the project image `<img>` tag to use the new asset.
+
+### Add a new blog post
+
+1. **Create a post page** in `src/pages/blog/` (e.g., `new-post.astro`).
+2. **Update the blog index** at `src/pages/blog/index.astro` by adding a new card with the title, date, summary, and link.
+3. **Add assets** (if needed) to `public/` and reference them in the post.
+
+### Add or update co-development packages
+
+1. **Update the package cards** in `src/pages/co-development.astro` within the `card-grid` section (title, duration, summary).
+2. **Update the modal content** in the `packageDetails` object in the same file so the detailed description, inclusions, and outcomes match the card.
+3. **Keep package keys in sync** between the card `data-package` attribute and the `packageDetails` object.
 
 ## 🖼️ Assets & Icons
 

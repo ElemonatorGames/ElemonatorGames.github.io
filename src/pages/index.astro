@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+// Editable home page metadata: SEO title, description, and social share image.
 const title = "Elemonator Games Inc. – Game Co‑Development & Projects";
 const description = "New Brunswick-based game studio helping teams ship—engineering, design, and art—plus two in-house projects. Explore co-development packages and our latest game projects.";
 const ogImage = "/placeholders/800x450.svg";
@@ -7,6 +8,7 @@ const ogImage = "/placeholders/800x450.svg";
 <Base {title} {description} {ogImage}>
   <section aria-labelledby="hero">
     <div class="card hero" aria-hidden="false">
+      <!-- Editable home hero: primary brand headline and value proposition copy -->
       <h1 id="hero">Elemonator Games Inc.</h1>
       <p>NB‑based game studio helping teams ship—engineering, design, and art—plus two in‑house projects.</p>
       <p>
@@ -18,21 +20,25 @@ const ogImage = "/placeholders/800x450.svg";
   </section>
 
   <section aria-labelledby="contact" id="contact">
+    <!-- Editable home contact section: section title and intro text for inquiry form -->
     <h2 id="contact">Contact</h2>
 
     <div class="card contact-card" role="region" aria-labelledby="contact">
       <form action="https://egi-contact-worker.elemonatorgames.workers.dev/contact" method="POST" novalidate>
         <div class="form-field">
+          <!-- Editable contact form field: requester's name -->
           <label for="name" class="label">Name</label>
           <input id="name" name="name" class="input" required autocomplete="name" />
         </div>
 
         <div class="form-field">
+          <!-- Editable contact form field: requester's email address -->
           <label for="email" class="label">Email</label>
           <input id="email" name="email" type="email" class="input" required autocomplete="email" />
         </div>
 
         <div class="form-field">
+          <!-- Editable contact form field: inquiry message details -->
           <label for="msg" class="label">Message</label>
           <textarea id="msg" name="message" class="textarea" rows="6" required></textarea>
         </div>
@@ -46,6 +52,7 @@ const ogImage = "/placeholders/800x450.svg";
           <button type="submit" class="btn btn--primary">Send</button>
         </div>
 
+        <!-- Editable contact form fallback: alternate contact copy if submission fails -->
         <p class="form-fallback">
           If this form fails, email us: <a href="mailto:elemonatorgames@gmail.com">elemonatorgames@gmail.com</a>
         </p>

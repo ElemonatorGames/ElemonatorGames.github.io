@@ -1,7 +1,8 @@
 ---
 import "../styles/tokens.css";
-const { 
-  title = "Elemonator Games Inc.", 
+// Editable global metadata defaults: update when refining site-wide SEO copy or share imagery.
+const {
+  title = "Elemonator Games Inc.",
   description = "New Brunswick-based game studio helping teams ship—engineering, design, and art—plus two in-house projects.",
   ogImage = "/placeholders/800x450.svg",
   url = ""
@@ -28,6 +29,7 @@ const canonicalUrl = url || new URL(Astro.request.url).origin + Astro.request.ur
     <header role="banner" class="site-header" data-header>
       <div class="container header-inner">
         <h1 class="visually-hidden">Elemonator Games Inc.</h1>
+        <!-- Editable global header: primary navigation labels -->
         <nav aria-label="Primary" class="nav">
           <a href="/">Home</a>
           <a href="/about">About</a>
@@ -115,6 +117,7 @@ const canonicalUrl = url || new URL(Astro.request.url).origin + Astro.request.ur
       <slot />
     </main>
     <footer role="contentinfo" class="container">
+      <!-- Editable global footer: social labels and destinations -->
       <ul class="social-list" aria-label="Socials and developer spaces">
         <li>
           <a href="https://x.com/ElemonatorGames" class="social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
