@@ -2,20 +2,31 @@
 import Base from "../layouts/Base.astro";
 // Editable home page metadata: SEO title, description, and social share image.
 const title = "Elemonator Games Inc. – Game Co‑Development & Projects";
-const description = "New Brunswick-based game studio helping teams ship—engineering, design, and art—plus two in-house projects. Explore co-development packages and our latest game projects.";
+const description =
+  "New Brunswick-based game studio helping teams ship—engineering, design, and art—plus two in-house projects. Explore co-development packages and our latest game projects.";
 const ogImage = "/placeholders/800x450.svg";
 ---
+
 <Base {title} {description} {ogImage}>
   <section aria-labelledby="hero">
     <div class="card hero" aria-hidden="false">
       <!-- Editable home hero: primary brand headline and value proposition copy -->
       <h1 id="hero">Elemonator Games Inc.</h1>
-      <p>NB‑based game studio helping teams ship—engineering, design, and art—plus two in‑house projects.</p>
       <p>
-        <a href="/co-development" class="btn btn--primary">Explore co‑dev packages</a>
-        <a href="/projects" class="btn btn--ghost" style="margin-left:.5rem;">See projects</a>
-        <a href="#contact" class="btn btn--ghost" style="margin-left:.5rem;">Contact</a>
+        We are a NB-based game studio that can help YOU make your projects a
+        reality.
       </p>
+      <!-- <p>
+        <a href="/co-development" class="btn btn--primary"
+          >Explore co‑dev packages</a
+        >
+        <a href="/projects" class="btn btn--ghost" style="margin-left:.5rem;"
+          >See projects</a
+        >
+        <a href="#contact" class="btn btn--ghost" style="margin-left:.5rem;"
+          >Contact</a
+        >
+      </p> -->
     </div>
   </section>
 
@@ -24,27 +35,52 @@ const ogImage = "/placeholders/800x450.svg";
     <h2 id="contact">Contact</h2>
 
     <div class="card contact-card" role="region" aria-labelledby="contact">
-      <form action="https://egi-contact-worker.elemonatorgames.workers.dev/contact" method="POST" novalidate>
+      <form
+        action="https://egi-contact-worker.elemonatorgames.workers.dev/contact"
+        method="POST"
+        novalidate
+      >
         <div class="form-field">
           <!-- Editable contact form field: requester's name -->
           <label for="name" class="label">Name</label>
-          <input id="name" name="name" class="input" required autocomplete="name" />
+          <input
+            id="name"
+            name="name"
+            class="input"
+            required
+            autocomplete="name"
+          />
         </div>
 
         <div class="form-field">
           <!-- Editable contact form field: requester's email address -->
           <label for="email" class="label">Email</label>
-          <input id="email" name="email" type="email" class="input" required autocomplete="email" />
+          <input
+            id="email"
+            name="email"
+            type="email"
+            class="input"
+            required
+            autocomplete="email"
+          />
         </div>
 
         <div class="form-field">
           <!-- Editable contact form field: inquiry message details -->
           <label for="msg" class="label">Message</label>
-          <textarea id="msg" name="message" class="textarea" rows="6" required></textarea>
+          <textarea id="msg" name="message" class="textarea" rows="6" required
+          ></textarea>
         </div>
 
         <!-- Anti-spam -->
-        <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+        <input
+          type="text"
+          name="company"
+          tabindex="-1"
+          autocomplete="off"
+          aria-hidden="true"
+          class="hp"
+        />
         <input type="hidden" name="token" value="egi-v1" />
         <input type="hidden" name="ts" id="egi-ts" value="0" />
 
@@ -54,7 +90,9 @@ const ogImage = "/placeholders/800x450.svg";
 
         <!-- Editable contact form fallback: alternate contact copy if submission fails -->
         <p class="form-fallback">
-          If this form fails, email us: <a href="mailto:elemonatorgames@gmail.com">elemonatorgames@gmail.com</a>
+          If this form fails, email us: <a
+            href="mailto:elemonatorgames@gmail.com">elemonatorgames@gmail.com</a
+          >
         </p>
 
         <div class="form-status" aria-live="polite" hidden></div>
@@ -63,10 +101,10 @@ const ogImage = "/placeholders/800x450.svg";
 
     <script type="module">
       (function () {
-        const form = document.querySelector('#contact form');
+        const form = document.querySelector("#contact form");
         if (!form) return;
         const submitBtn = form.querySelector('button[type="submit"]');
-        const status = form.querySelector('.form-status');
+        const status = form.querySelector(".form-status");
         const tsEl = form.querySelector('input[name="ts"]');
 
         // Set initial timestamp on page load
@@ -74,17 +112,17 @@ const ogImage = "/placeholders/800x450.svg";
 
         // Update timestamp on form interaction to prevent stale timestamps
         // Also handle has-content class for textarea
-        const inputs = form.querySelectorAll('input, textarea');
-        const textarea = form.querySelector('#msg');
-        inputs.forEach(input => {
-          input.addEventListener('input', () => {
+        const inputs = form.querySelectorAll("input, textarea");
+        const textarea = form.querySelector("#msg");
+        inputs.forEach((input) => {
+          input.addEventListener("input", () => {
             if (tsEl) tsEl.value = String(Date.now());
             // Update has-content class for textarea
             if (textarea && input === textarea) {
               if (textarea.value.trim().length > 0) {
-                textarea.classList.add('has-content');
+                textarea.classList.add("has-content");
               } else {
-                textarea.classList.remove('has-content');
+                textarea.classList.remove("has-content");
               }
             }
           });
@@ -93,20 +131,20 @@ const ogImage = "/placeholders/800x450.svg";
         // Set initial has-content state for textarea
         if (textarea) {
           if (textarea.value.trim().length > 0) {
-            textarea.classList.add('has-content');
+            textarea.classList.add("has-content");
           }
         }
 
-        form.addEventListener('submit', async (e) => {
+        form.addEventListener("submit", async (e) => {
           e.preventDefault();
 
           // Clear any previous status
           status.hidden = true;
-          status.classList.remove('form-status--error');
-          status.textContent = '';
+          status.classList.remove("form-status--error");
+          status.textContent = "";
 
           // Mark form as validated to show validation styles
-          form.classList.add('validated');
+          form.classList.add("validated");
 
           // Rely on browser validation first
           if (!form.checkValidity()) {
@@ -115,53 +153,55 @@ const ogImage = "/placeholders/800x450.svg";
           }
 
           submitBtn.disabled = true;
-          submitBtn.textContent = 'Sending…';
-          form.classList.add('submitting');
+          submitBtn.textContent = "Sending…";
+          form.classList.add("submitting");
 
-          const spinner = document.createElement('span');
-          spinner.className = 'spinner';
+          const spinner = document.createElement("span");
+          spinner.className = "spinner";
           submitBtn.appendChild(spinner);
 
           try {
             const res = await fetch(form.action, {
-              method: 'POST',
+              method: "POST",
               headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Accept': 'application/json'
+                "Content-Type": "application/x-www-form-urlencoded",
+                Accept: "application/json",
               },
-              body: new URLSearchParams(new FormData(form)).toString()
+              body: new URLSearchParams(new FormData(form)).toString(),
             });
 
             const data = await res.json().catch(() => null);
 
             if (res.ok && data && data.success) {
-              window.location.href = '/thanks';
+              window.location.href = "/thanks";
               return;
             }
 
-            const msg = (data && data.error) ? data.error : (res.statusText || 'Server error.');
-            status.textContent = 'Submission failed: ' + msg;
-            status.classList.add('form-status--error');
+            const msg =
+              data && data.error
+                ? data.error
+                : res.statusText || "Server error.";
+            status.textContent = "Submission failed: " + msg;
+            status.classList.add("form-status--error");
             status.hidden = false;
             status.tabIndex = -1;
             status.focus();
-
           } catch (err) {
             console.error(err);
-            status.textContent = 'Network error. Please try again, or email us directly at elemonatorgames@gmail.com.';
-            status.classList.add('form-status--error');
+            status.textContent =
+              "Network error. Please try again, or email us directly at elemonatorgames@gmail.com.";
+            status.classList.add("form-status--error");
             status.hidden = false;
             status.tabIndex = -1;
             status.focus();
           } finally {
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Send';
+            submitBtn.textContent = "Send";
             spinner.remove();
-            form.classList.remove('submitting');
+            form.classList.remove("submitting");
           }
         });
       })();
     </script>
   </section>
-
 </Base>
