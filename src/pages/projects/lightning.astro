@@ -1,7 +1,13 @@
 ---
 import Base from "../../layouts/Base.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
 ---
-<Base title="Project Lightning — EGI">
+<Base title="Project Lightning — EGI" description="Project Lightning: An in-house prototype exploring high-performance multiplayer experiences with advanced netcode and engaging gameplay loops.">
+  <Breadcrumb items={[
+    { label: "Home", href: "/" },
+    { label: "Projects", href: "/projects" },
+    { label: "Project Lightning" }
+  ]} />
   <article class="card">
     <h1>Project Lightning</h1>
     <p class="meta">In-house • Unreal • PC • 2025</p>

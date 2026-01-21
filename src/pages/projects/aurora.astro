@@ -1,7 +1,13 @@
 ---
 import Base from "../../layouts/Base.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
 ---
-<Base title="Project Aurora — EGI">
+<Base title="Project Aurora — EGI" description="Project Aurora: A co-development project featuring narrative-driven cooperative gameplay and modular systems for cross-platform deployment.">
+  <Breadcrumb items={[
+    { label: "Home", href: "/" },
+    { label: "Projects", href: "/projects" },
+    { label: "Project Aurora" }
+  ]} />
   <article class="card">
     <h1>Project Aurora</h1>
     <p class="meta">Co‑dev • Unity • Multi‑platform • 2024</p>
