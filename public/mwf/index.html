@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Mine With Friends</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #0a0a0a;
+        height: 100%;
+        overflow: hidden;
+        overscroll-behavior: none;
+        /* Page-level gestures off. Without this the browser owns any second
+           touch: with one finger steering the joystick, a second finger tapping a
+           HUD button was interpreted as the start of a pinch/double-tap-zoom, and
+           the browser withheld the click entirely — so menu icons and the tutorial
+           dismiss did nothing while moving. Scrollable menu bodies opt back in
+           with `touch-action: pan-y` (see ui/styles.ts). */
+        touch-action: none;
+      }
+      #game {
+        display: block;
+        width: 100vw;
+        /* `dvh` tracks the *visible* viewport, so the canvas keeps filling the
+           screen as mobile browser chrome slides in and out; `vh` is the fallback
+           for engines without it (and is what desktop resolves to anyway). */
+        height: 100vh;
+        height: 100dvh;
+        /* Stop pinch/scroll/long-press gestures from fighting the game or
+           scrolling the parent portal page. */
+        touch-action: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      #unsupported {
+        display: none;
+        position: fixed;
+        inset: 0;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        box-sizing: border-box;
+        text-align: center;
+        color: #eee;
+        font-family: system-ui, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+    </style>
+    <script type="module" crossorigin src="./assets/index-DJROh72O.js"></script>
+    <script async data-ad-frequency-hint="30s" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5648189397594376" crossorigin="anonymous"></script>
+    <script>window.adsbygoogle = window.adsbygoogle || [];var adBreak = adConfig = function(o) {adsbygoogle.push(o);}</script>
+  </head>
+  <body>
+    <canvas id="game"></canvas>
+    <div id="unsupported">
+      Your browser is too old to run this game. Please update to a recent version
+      of Chrome, Safari, Firefox, or Edge.
+    </div>
+    <!-- Feature-check: the game bundle targets ES2022. Browsers that can't parse
+         it (Safari &lt;15.4, older Android WebViews) would otherwise fail to a blank
+         screen. This ES5-safe probe compiles (does not run) a snippet of ES2022
+         syntax; a SyntaxError means the bundle won't load, so we show a friendly
+         message instead. -->
+    <script>
+      (function () {
+        try {
+          // class private fields, Array.prototype.at, logical assignment.
+          new Function('class C{#x=1;m(){return this.#x}}var a=[1].at(0);var b={};b.x??=2;');
+        } catch (e) {
+          var msg = document.getElementById('unsupported');
+          if (msg) msg.style.display = 'flex';
+          var game = document.getElementById('game');
+          if (game) game.style.display = 'none';
+        }
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+---
+import Base from "../../layouts/Base.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+---
+
+<Base
+  title="Mine With Friends — EGI"
+  description="Mine With Friends: a 2D top-down multiplayer mining tycoon. Auto-mine with orbiting pickaxes, gear up, and rebirth for more — free to play in your browser."
+>
+  <Breadcrumb
+    items={[
+      { label: "Home", href: "/" },
+      { label: "Projects", href: "/projects" },
+      { label: "Mine With Friends" },
+    ]}
+  />
+  <!-- Editable project detail: headline, metadata, and overview copy for Mine With Friends -->
+  <article class="card">
+    <h1>Mine With Friends</h1>
+    <p class="meta">In-house • Web • Multiplayer • 2026</p>
+    <!-- Editable project detail: placeholder hero image -->
+    <img src="/placeholders/800x450.svg" alt="Mine With Friends placeholder" />
+    <h2>Overview</h2>
+    <p>
+      A 2D top-down multiplayer mining tycoon built on our own in-house game
+      engine. Orbiting pickaxes auto-mine rocks for ores and bones, which you
+      display for passive income, spent on upgrades, new areas, and gacha
+      pickaxe rolls, with rebirth meta-progression. Fully playable solo, with
+      an optional multiplayer presence overlay to mine alongside friends.
+    </p>
+    <p>
+      <a href="/mwf/" class="btn btn--primary">Play now</a>
+      <a
+        href="/projects"
+        class="btn btn--ghost btn--hover-green"
+        style="margin-left:.5rem;">Return to projects</a
+      >
+    </p>
+  </article>
+</Base>
