@@ -14,6 +14,17 @@ const canonicalUrl =
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!--
+      Consent management (Google Funding Choices, 3-choice message: Consent /
+      Do not consent / Manage options). Must load before any ad/analytics
+      script so consent signals are established first. Paste the snippet from
+      AdSense > Privacy & messaging here — it is account-specific and isn't
+      generated until the message is created in that console.
+      Style the message to match the site palette: background #0b0b0c,
+      text #fafafa, "Consent" button solid #87ff45 on black, "Do not consent"
+      as an outlined/ghost button.
+    -->
+    <!-- TODO: paste Funding Choices snippet here -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
     <title>{title}</title>
@@ -243,6 +254,19 @@ const canonicalUrl =
         <a href="/cookie-policy">Cookie Policy</a>
         <span aria-hidden="true">•</span>
         <a href="/contact">Contact Information</a>
+        <span aria-hidden="true">•</span>
+        <!--
+          Reopens the Funding Choices preference dialog. TODO: replace the
+          click handler body with the revocation call Google provides
+          alongside the consent snippet above (typically
+          googlefc.callbackQueue.push(...) or googlefc.showRevocationMessage()).
+        -->
+        <a
+          href="#"
+          id="manage-ad-consent"
+          onclick="event.preventDefault(); if (window.googlefc && window.googlefc.callbackQueue) { window.googlefc.callbackQueue.push({ 'CONSENT_DATA_READY': function() { window.googlefc.showRevocationMessage(); } }); }"
+          >Manage Ad Consent</a
+        >
       </p>
     </footer>
   </body>
