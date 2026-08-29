@@ -48,20 +48,100 @@
         font-size: 16px;
         line-height: 1.5;
       }
+      /* Loading overlay: visible from first paint (no JS required to show it),
+         so there's never a blank frame while the module graph/boot sequence
+         runs. `src/ui/loading-screen.ts` takes ownership of these nodes once
+         JS boots (progress, tooltips, hide, or the error/retry state) — it
+         never re-renders them, just updates them in place. Colors are copied
+         literally from `src/ui/theme.ts` (PALETTE/ACCENTS.gold): this file
+         can't import TS constants into a pre-module inline block. */
+      #loading {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #12141c;
+        color: #e8ecf5;
+        font-family: Nunito, 'Segoe UI Variable Display', 'Segoe UI', system-ui, -apple-system, Roboto,
+          'Helvetica Neue', 'PingFang SC', 'Hiragino Sans', 'Microsoft YaHei', 'Malgun Gothic', sans-serif;
+        transition: opacity 0.3s ease;
+      }
+      #loading-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        width: min(320px, 80vw);
+        box-sizing: border-box;
+      }
+      #loading-title {
+        font-size: 22px;
+        font-weight: 800;
+        color: #ffcb3d;
+        letter-spacing: 0.02em;
+        text-align: center;
+      }
+      #loading-track {
+        width: 100%;
+        height: 10px;
+        border-radius: 999px;
+        background: #20232e;
+        border: 1px solid #4a5066;
+        overflow: hidden;
+        box-sizing: border-box;
+      }
+      #loading-bar {
+        height: 100%;
+        width: 0%;
+        background: #ffcb3d;
+        transition: width 0.25s ease;
+      }
+      #loading-pct {
+        font-size: 13px;
+        font-weight: 700;
+        color: #8b93a8;
+      }
+      #loading-tip {
+        min-height: 32px;
+        font-size: 13px;
+        color: #c6a349;
+        text-align: center;
+        line-height: 1.4;
+      }
+      .loading-error-msg {
+        font-size: 15px;
+        text-align: center;
+        color: #e8ecf5;
+        max-width: 280px;
+      }
+      .loading-error-btn {
+        font: inherit;
+        font-weight: 800;
+        font-size: 14px;
+        padding: 10px 24px;
+        border-radius: 8px;
+        border: none;
+        background: #ffcb3d;
+        color: #3a2600;
+        cursor: pointer;
+      }
     </style>
-    <!--
-      Consent management (Google Funding Choices, 3-choice message: Consent /
-      Do not consent / Manage options). Must load before the AdSense tags
-      below so consent signals are established before any ad request fires.
-      Paste the snippet from AdSense > Privacy & messaging here.
-    -->
-    <!-- TODO: paste Funding Choices snippet here -->
-    <script type="module" crossorigin src="./assets/index-CwtKb7iy.js"></script>
+    <script type="module" crossorigin src="./assets/index-CnWitxnc.js"></script>
     <script async data-ad-frequency-hint="30s" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5648189397594376" crossorigin="anonymous"></script>
     <script>window.adsbygoogle = window.adsbygoogle || [];var adBreak = adConfig = function(o) {adsbygoogle.push(o);}</script>
   </head>
   <body>
     <canvas id="game"></canvas>
+    <div id="loading">
+      <div id="loading-inner">
+        <div id="loading-title">Mine With Friends</div>
+        <div id="loading-track"><div id="loading-bar"></div></div>
+        <div id="loading-pct">0%</div>
+        <div id="loading-tip"></div>
+      </div>
+    </div>
     <div id="unsupported">
       Your browser is too old to run this game. Please update to a recent version
       of Chrome, Safari, Firefox, or Edge.
@@ -81,6 +161,10 @@
           if (msg) msg.style.display = 'flex';
           var game = document.getElementById('game');
           if (game) game.style.display = 'none';
+          // The module bundle can't run on this browser, so the loading
+          // overlay would otherwise sit there forever with nothing to hide it.
+          var loading = document.getElementById('loading');
+          if (loading) loading.style.display = 'none';
         }
       })();
     </script>
